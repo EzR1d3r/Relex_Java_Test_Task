@@ -15,17 +15,21 @@ class Item
 
 class Scene 
 {
-    private int size_x = 3;
-    private int size_y = 5;
+    private int size_x;
+    private int size_y;
 
-    private boolean mask[][] = new boolean[this.size_x][this.size_y];
+    private boolean mask[][];
     private String filler = "[ ]";
     private String blank_filler = "   ";
 
     private ArrayList<Item> objects = new ArrayList<>(4);
 
-    Scene()
+    Scene( int size_x, int size_y )
     {
+        this.size_x = size_x;
+        this.size_y = size_y;
+        this.mask = new boolean[this.size_x][this.size_y];
+
         for (int i = 0; i < mask.length; i++)
             Arrays.fill( this.mask[i], true );
     }
@@ -57,6 +61,11 @@ class Scene
         this.objects.add(item);
     }
 
+    public void setMask( boolean[][] mask )
+    {
+        this.mask = mask;
+    }
+
     public void render()
     {
         String[][] render_arr = this.fill_render_arr();
@@ -72,16 +81,16 @@ class Scene
     }
 }
 
-class QuickStart {
+class Main {
     public static void main (String[] args)
     {
-        // System.out.print("Hello, World.");
-        // boolean mask[] = new boolean[4];
-        // Arrays.fill(mask, true);
-        // for (int i = 0; i < 4; ++i)
-        //     System.out.print( mask.length );
-
-        Scene scene = new Scene();
+        Scene scene = new Scene(3, 5);
+        boolean[][] mask = { {false, true, true, true, false}, {true, true, true, true, true}, {false, true, true, true, false} };
+        scene.setMask(mask);
+        Item item = new Item("[*]");
+        item.x = 1;
+        item.y = 2;
+        scene.addItem(item);
         scene.render();
     }
 }
