@@ -108,6 +108,17 @@ public class GameManager
         return res;
     }
 
+    private boolean checkRunnerWin()
+    {
+        boolean res = true;
+        
+        res = res && this.RunnerItem.y() > this.CatcherItems[0].y();
+        res = res && this.RunnerItem.y() > this.CatcherItems[1].y();
+        res = res && this.RunnerItem.y() > this.CatcherItems[2].y();
+        
+        return res;
+    }
+
     private boolean CatcherTurn()
     {
         System.out.println("Catcher, it is a your turn!");
@@ -142,10 +153,48 @@ public class GameManager
         return this.checkCatcherWin();
     }
 
-    private void RunnerTurn()
+    private boolean RunnerTurn()
     {
         System.out.println("Runner, it is a your turn!");
         scene.render();
+        
+        System.out.println("Choose a correct direction: 1.Up 2.Left 3.Right 4.Down!");
+        int direction = -1;
+        int x = -1;
+        int y = -1;
+        boolean success = false;
+
+        while (!success)
+        {
+            direction = this.get_int_from_user(1, 4);
+            switch (direction)
+            {
+                case 1: // Up
+                    x = this.RunnerItem.x();
+                    y = this.RunnerItem.y() - 1;
+                    break;
+                case 2: // Left
+                    x = this.RunnerItem.x() - 1;
+                    y = RunnerItem.onPos(1, 0) ? 1 : RunnerItem.y();
+                    break;
+                case 3: // Right
+                    x = this.RunnerItem.x() + 1;
+                    y = RunnerItem.onPos(1, 0) ? 1 : RunnerItem.y();
+                    break;
+                case 4: // Down
+                    x = this.RunnerItem.x();
+                    y = this.RunnerItem.y() + 1;
+                    break;
+                default:
+                    break;
+            }
+
+            success = this.available_point(x, y);
+        }
+
+        this.RunnerItem.setPos(x, y);
+
+        return this.checkRunnerWin();
     }
 
     private int get_int_from_user(int min, int max)
@@ -163,18 +212,17 @@ public class GameManager
         }
         while (res < min || res > max);
 
-        scanner.close();
+        // scanner.close();
         return res;
     }
 
     private void local_game()
     {
         boolean game_over = false;
+        while (!game_over) game_over = this.CatcherTurn() || this.RunnerTurn();
+        scene.render();
 
-        while (!game_over)
-        {
-            game_over = this.CatcherTurn();
-        }
+        System.out.println("GAME OVER");
     }
 
 }
