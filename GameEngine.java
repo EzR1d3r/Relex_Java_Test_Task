@@ -1,13 +1,16 @@
 public class GameEngine
 {
-    private boolean[][] game_field = { {false, true, true, true, false}, {true, true, true, true, true}, {false, true, true, true, false} };
+    private boolean[][] game_field;
     private Item[] CatcherItems = { new Item("[X]"), new Item("[X]"), new Item("[X]") };
     private Item RunnerItem = new Item("[*]");
 
     private Scene scene = null;
+    private ReplayHandler replay_recorder = new ReplayHandler();
 
-    GameEngine()
+    GameEngine( boolean[][] game_field )
     {
+        this.game_field = game_field;
+
         this.scene = new Scene( game_field.length, game_field[0].length );
         scene.setMask(game_field);
 
@@ -116,6 +119,7 @@ public class GameEngine
             }
         }
         CatcherItems[item_idx].setPos(x, y);
+        this.replay_recorder.record_move( new SingleMove('C', item_idx, x, y) );
 
         boolean win = this.checkCatcherWin();
         
@@ -167,6 +171,7 @@ public class GameEngine
         }
 
         this.RunnerItem.setPos(x, y);
+        this.replay_recorder.record_move( new SingleMove('R', 0, x, y) );
 
         boolean win = this.checkRunnerWin();
         if (win)
@@ -176,9 +181,10 @@ public class GameEngine
         return win;
     }
 
-    public void local_game()
+    public void local_game( String catcher_name, String runner_name )
     {
         this.reset();
+        this.replay_recorder.start_new_record(catcher_name, runner_name);
 
         boolean game_over = false;
         while (!game_over) 
@@ -187,6 +193,7 @@ public class GameEngine
         }
         scene.render();
 
+        this.replay_recorder.save_replay("replays/");
         System.out.println("GAME OVER");
     }
 

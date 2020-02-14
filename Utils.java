@@ -21,4 +21,10 @@ public class Utils
         // scanner.close();
         return res;
     }
+
+    public static boolean[][] get_default_field()
+    {
+        boolean[][] game_field = { {false, true, true, true, false}, {true, true, true, true, true}, {false, true, true, true, false} };
+        return game_field;
+    }
 }
