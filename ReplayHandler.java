@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 class SingleMove
@@ -31,6 +31,8 @@ class Replay
     public String catcher_name = "";
     public String runner_name  = "";
 
+    public boolean[][] game_field = {};
+
     public ArrayList<SingleMove> moves = new ArrayList<>();
 
     // Replay(){};
@@ -40,10 +42,11 @@ public class ReplayHandler
 {
     public Replay replay = new Replay();
     
-    public void start_new_record( String catcher_name, String runner_name )
+    public void start_new_record( String catcher_name, String runner_name, boolean[][] game_field )
     {
         this.replay.catcher_name = catcher_name;
         this.replay.runner_name = runner_name;
+        this.replay.game_field = game_field;
         this.replay.moves.clear();
     }
 

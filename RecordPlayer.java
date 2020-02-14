@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class RecordPlayer
 {
-    private ReplayHandler replay_recorder = null;
+    private ReplayHandler replay_handler = null;
     private Scene scene = new Scene( 0, 0 );
 
     private Item[] CatcherItems = { new Item("[X]"), new Item("[X]"), new Item("[X]") };
@@ -10,7 +10,7 @@ public class RecordPlayer
 
     RecordPlayer( ReplayHandler replay_recorder )
     {
-        this.replay_recorder = replay_recorder;
+        this.replay_handler = replay_recorder;
     }
 
     private void applyMove( SingleMove move )
@@ -23,8 +23,8 @@ public class RecordPlayer
 
     public void load_replay( String path )
     {
-        this.replay_recorder.load_replay(path);
-        boolean[][] game_field = Utils.get_default_field(); // информация об игровом поле должна браться из реплея, пока берем стандартный
+        this.replay_handler.load_replay(path);
+        boolean[][] game_field = this.replay_handler.replay.game_field;
         this.scene = new Scene(game_field.length, game_field[0].length);
         this.scene.setMask(game_field);
 
@@ -41,10 +41,10 @@ public class RecordPlayer
 
     public void play()
     {
-        System.out.println( "Recorded game: " + replay_recorder.replay.catcher_name + "(catcher) vs " + replay_recorder.replay.runner_name + "(runner)" );
+        System.out.println( "Recorded game: " + replay_handler.replay.catcher_name + "(catcher) vs " + replay_handler.replay.runner_name + "(runner)" );
         scene.render();
         Scanner scanner =  new Scanner (System.in);
-        for (SingleMove move : replay_recorder.replay.moves)
+        for (SingleMove move : replay_handler.replay.moves)
         {
             System.out.println("=========\n=========");
             this.applyMove(move);
@@ -53,13 +53,13 @@ public class RecordPlayer
             scanner.next();
         }
         String winner_name = "";
-        int last_move_idx = replay_recorder.replay.moves.size() - 1;
-        SingleMove last_move = replay_recorder.replay.moves.get( last_move_idx );
+        int last_move_idx = replay_handler.replay.moves.size() - 1;
+        SingleMove last_move = replay_handler.replay.moves.get( last_move_idx );
 
         if (last_move.player == 'C')
-            winner_name = replay_recorder.replay.catcher_name + "(catcher)";
+            winner_name = replay_handler.replay.catcher_name + "(catcher)";
         else
-            winner_name = replay_recorder.replay.runner_name + "(runner)";
+            winner_name = replay_handler.replay.runner_name + "(runner)";
 
         System.out.println( winner_name + " wins on a " + last_move_idx + " move." );
         scanner.close();
