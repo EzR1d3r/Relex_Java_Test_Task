@@ -87,6 +87,7 @@ public class GameEngine
 
     private boolean CatcherTurn()
     {
+        System.out.println("============================\n============================");
         System.out.println("Catcher, it is a your turn!");
         scene.render();
 
@@ -116,11 +117,18 @@ public class GameEngine
         }
         CatcherItems[item_idx].setPos(x, y);
 
-        return this.checkCatcherWin();
+        boolean win = this.checkCatcherWin();
+        
+        if (win)
+        {
+            System.out.println("Catcher wins!");
+        }
+        return win;
     }
 
     private boolean RunnerTurn()
     {
+        System.out.println("============================\n============================");
         System.out.println("Runner, it is a your turn!");
         scene.render();
         
@@ -160,7 +168,12 @@ public class GameEngine
 
         this.RunnerItem.setPos(x, y);
 
-        return this.checkRunnerWin();
+        boolean win = this.checkRunnerWin();
+        if (win)
+        {
+            System.out.println("Runner wins!");
+        }
+        return win;
     }
 
     public void local_game()
@@ -168,7 +181,10 @@ public class GameEngine
         this.reset();
 
         boolean game_over = false;
-        while (!game_over) game_over = this.CatcherTurn() || this.RunnerTurn();
+        while (!game_over) 
+        {
+            game_over = this.CatcherTurn() || this.RunnerTurn();
+        }
         scene.render();
 
         System.out.println("GAME OVER");

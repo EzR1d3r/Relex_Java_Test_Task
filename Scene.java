@@ -64,7 +64,7 @@ public class Scene
             {
                 System.out.print( render_arr[x][y] );
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
