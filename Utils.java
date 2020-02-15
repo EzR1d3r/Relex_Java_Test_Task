@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Utils
 {
+    static public String default_replays_folder = "replays/";
 
     static public int get_int_from_user(int min, int max)
     {

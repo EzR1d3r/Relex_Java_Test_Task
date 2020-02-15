@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class RecordPlayer
 {
     private ReplayHandler replay_handler = null;
-    private Scene scene = new Scene( 0, 0 );
+    private Scene scene = null;
 
     private Item[] CatcherItems = { new Item("[X]"), new Item("[X]"), new Item("[X]") };
     private Item RunnerItem = new Item("[*]");
@@ -25,8 +25,7 @@ public class RecordPlayer
     {
         this.replay_handler.load_replay(path);
         boolean[][] game_field = this.replay_handler.replay.game_field;
-        this.scene = new Scene(game_field.length, game_field[0].length);
-        this.scene.setMask(game_field);
+        this.scene = new Scene(game_field);
 
         scene.addItem( this.RunnerItem );
         for (Item item : this.CatcherItems)
@@ -47,10 +46,10 @@ public class RecordPlayer
         for (SingleMove move : replay_handler.replay.moves)
         {
             System.out.println("=========\n=========");
-            this.applyMove(move);
-            scene.render();
             System.out.println("Input any key.");
             scanner.next();
+            this.applyMove(move);
+            scene.render();
         }
         String winner_name = "";
         int last_move_idx = replay_handler.replay.moves.size() - 1;

@@ -6,20 +6,17 @@ public class Scene
     private int size_x;
     private int size_y;
 
-    private boolean mask[][];
+    private boolean game_field[][];
     private String filler = "[ ]";
     private String blank_filler = "   ";
 
     private ArrayList<Item> objects = new ArrayList<>(4);
 
-    Scene( int size_x, int size_y )
+    Scene( boolean game_field[][] )
     {
-        this.size_x = size_x;
-        this.size_y = size_y;
-        this.mask = new boolean[this.size_x][this.size_y];
-
-        for (int i = 0; i < mask.length; i++)
-            Arrays.fill( this.mask[i], true );
+        this.game_field = game_field;
+        this.size_x = game_field.length;
+        this.size_y = game_field[0].length; //игнорируем возможную ошибку пустого пустого поля
     }
 
     private String[][] fill_render_arr()
@@ -29,7 +26,7 @@ public class Scene
         {
             for (int y = 0; y < this.size_y; y++)
             {
-                if (mask[x][y])
+                if (game_field[x][y])
                     render_arr[x][y] = this.filler;
                 else
                     render_arr[x][y] = this.blank_filler;
@@ -47,11 +44,6 @@ public class Scene
     public void addItem( Item item )
     {
         this.objects.add(item);
-    }
-
-    public void setMask( boolean[][] mask )
-    {
-        this.mask = mask;
     }
 
     public void render()

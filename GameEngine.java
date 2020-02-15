@@ -11,8 +11,7 @@ public class GameEngine
     {
         this.game_field = game_field;
 
-        this.scene = new Scene( game_field.length, game_field[0].length );
-        scene.setMask(game_field);
+        this.scene = new Scene( game_field );
 
         scene.addItem( this.RunnerItem );
         for (Item item : this.CatcherItems)
@@ -193,7 +192,7 @@ public class GameEngine
         }
         scene.render();
 
-        this.replay_handler.save_replay("replays/");
+        this.replay_handler.save_replay( Utils.default_replays_folder );
         System.out.println("GAME OVER");
     }
 

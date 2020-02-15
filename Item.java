@@ -1,12 +1,12 @@
 public class Item
 {
-    private String _design;
+    private String _sign;
     private int _x = 0;
     private int _y = 0;
     
-    Item( String design )
+    Item( String sign )
     {
-        this._design = design; // можно добавить проверка, что отображение составляет 3 символа
+        this._sign = sign; // можно добавить проверку, что отображение составляет 3 символа
     }
 
     public void setPos(int x, int y)
@@ -22,5 +22,5 @@ public class Item
 
     public int x() { return this._x; }
     public int y() { return this._y; }
-    public String design(){ return this._design; }
+    public String design(){ return this._sign; }
 }

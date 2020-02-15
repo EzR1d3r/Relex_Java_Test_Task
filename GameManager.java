@@ -17,7 +17,7 @@ public class GameManager
 
     private void watch_replay()
     {
-        File folder = new File("replays/");
+        File folder = new File( Utils.default_replays_folder );
         String[] replays_names = folder.list();
 
         System.out.println("Please choose a replay.");
@@ -30,11 +30,11 @@ public class GameManager
 
         for (int i = 1; i <= replays_names.length; i++)
         {
-            System.out.println( i + ". " + replays_names[i-1] );
+            System.out.println( i + ". " + replays_names[i - 1] );
         }
 
         int idx = Utils.get_int_from_user(1, replays_names.length);
-        player.load_replay( "replays/" + replays_names[idx - 1] );
+        player.load_replay( Utils.default_replays_folder + replays_names[idx - 1] );
         player.play();
     }
     
