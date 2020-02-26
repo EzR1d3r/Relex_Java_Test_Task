@@ -1,3 +1,5 @@
+package ru.relex.vita.game;
+
 public class GameEngine
 {
     private boolean[][] game_field;

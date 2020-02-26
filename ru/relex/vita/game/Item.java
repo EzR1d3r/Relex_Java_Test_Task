@@ -1,3 +1,5 @@
+package ru.relex.vita.game;
+
 public class Item
 {
     private String _sign;

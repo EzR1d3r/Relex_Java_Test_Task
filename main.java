@@ -1,3 +1,5 @@
+import ru.relex.vita.game.GameManager;
+
 class Main
 {
     public static void main (String[] args)

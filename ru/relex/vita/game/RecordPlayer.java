@@ -1,3 +1,5 @@
+package ru.relex.vita.game;
+
 import java.util.Scanner;
 
 public class RecordPlayer
