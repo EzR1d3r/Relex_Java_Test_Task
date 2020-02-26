@@ -13,18 +13,18 @@ public class GameEngine
 
         this.scene = new Scene( game_field );
 
-        scene.addItem( this.RunnerItem );
+        scene.add_item( this.RunnerItem );
         for (Item item : this.CatcherItems)
-            scene.addItem(item);
+            scene.add_item(item);
     }
 
     public void reset()
     {
-        CatcherItems[0].setPos(0, 3);
-        CatcherItems[1].setPos(1, 4);
-        CatcherItems[2].setPos(2, 3);
+        CatcherItems[0].set_pos(0, 3);
+        CatcherItems[1].set_pos(1, 4);
+        CatcherItems[2].set_pos(2, 3);
 
-        RunnerItem.setPos(1, 2);
+        RunnerItem.set_pos(1, 2);
     }
 
     private boolean check_point_for_out_of_range(int x, int y)
@@ -39,10 +39,10 @@ public class GameEngine
 
     private boolean check_point_for_free(int x, int y)
     {
-        if ( RunnerItem.onPos(x, y) ) return false;
+        if ( RunnerItem.is_on_pos(x, y) ) return false;
         for (Item item : CatcherItems)
         {
-            if ( item.onPos(x, y) ) return false;
+            if ( item.is_on_pos(x, y) ) return false;
         }
         return true;
     }
@@ -52,11 +52,11 @@ public class GameEngine
         return this.check_point_for_out_of_range(x, y) && this.check_point_for_free(x, y);
     }
 
-    private boolean checkCatcherWin()
+    private boolean check_Catcher_win()
     {
         boolean res = true;
 
-        if (this.RunnerItem.onPos(1, 0))
+        if (this.RunnerItem.is_on_pos(1, 0))
         {
             res = res && !this.available_point(0, 1);
             res = res && !this.available_point(1, 1);
@@ -76,7 +76,7 @@ public class GameEngine
         return res;
     }
 
-    private boolean checkRunnerWin()
+    private boolean check_Runner_win()
     {
         boolean res = true;
         
@@ -87,7 +87,7 @@ public class GameEngine
         return res;
     }
 
-    private boolean CatcherTurn()
+    private boolean catcher_turn()
     {
         System.out.println("============================\n============================");
         System.out.println("Catcher, it is a your turn!");
@@ -117,10 +117,10 @@ public class GameEngine
                 success = this.check_point_for_free(x, y);
             }
         }
-        CatcherItems[item_idx].setPos(x, y);
+        CatcherItems[item_idx].set_pos(x, y);
         this.replay_handler.record_move( new SingleMove('C', item_idx, x, y) );
 
-        boolean win = this.checkCatcherWin();
+        boolean win = this.check_Catcher_win();
         
         if (win)
         {
@@ -129,7 +129,7 @@ public class GameEngine
         return win;
     }
 
-    private boolean RunnerTurn()
+    private boolean runner_turn()
     {
         System.out.println("============================\n============================");
         System.out.println("Runner, it is a your turn!");
@@ -152,11 +152,11 @@ public class GameEngine
                     break;
                 case 2: // Left
                     x = this.RunnerItem.x() - 1;
-                    y = RunnerItem.onPos(1, 0) ? 1 : RunnerItem.y();
+                    y = RunnerItem.is_on_pos(1, 0) ? 1 : RunnerItem.y();
                     break;
                 case 3: // Right
                     x = this.RunnerItem.x() + 1;
-                    y = RunnerItem.onPos(1, 0) ? 1 : RunnerItem.y();
+                    y = RunnerItem.is_on_pos(1, 0) ? 1 : RunnerItem.y();
                     break;
                 case 4: // Down
                     x = this.RunnerItem.x();
@@ -169,10 +169,10 @@ public class GameEngine
             success = this.available_point(x, y);
         }
 
-        this.RunnerItem.setPos(x, y);
+        this.RunnerItem.set_pos(x, y);
         this.replay_handler.record_move( new SingleMove('R', 0, x, y) );
 
-        boolean win = this.checkRunnerWin();
+        boolean win = this.check_Runner_win();
         if (win)
         {
             System.out.println("Runner wins!");
@@ -188,7 +188,7 @@ public class GameEngine
         boolean game_over = false;
         while (!game_over) 
         {
-            game_over = this.CatcherTurn() || this.RunnerTurn();
+            game_over = this.catcher_turn() || this.runner_turn();
         }
         scene.render();
 

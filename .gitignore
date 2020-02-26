@@ -1,3 +1,5 @@
+*.rep
+
 # VS Code settings
 .vscode/
 .idea/

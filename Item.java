@@ -9,13 +9,13 @@ public class Item
         this._sign = sign; // можно добавить проверку, что отображение составляет 3 символа
     }
 
-    public void setPos(int x, int y)
+    public void set_pos(int x, int y)
     {
         this._x = x;
         this._y = y;
     }
 
-    public boolean onPos(int x, int y)
+    public boolean is_on_pos(int x, int y)
     {
         return this._x == x && this._y == y;
     }

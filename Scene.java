@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Scene 
@@ -41,7 +40,7 @@ public class Scene
         return render_arr;
     }
 
-    public void addItem( Item item )
+    public void add_item( Item item )
     {
         this.objects.add(item);
     }

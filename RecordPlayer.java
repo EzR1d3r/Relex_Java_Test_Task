@@ -13,12 +13,12 @@ public class RecordPlayer
         this.replay_handler = replay_recorder;
     }
 
-    private void applyMove( SingleMove move )
+    private void apply_move( SingleMove move )
     {
         if (move.player == 'C' )
-            CatcherItems[move.idx].setPos(move.x, move.y);
+            CatcherItems[move.idx].set_pos(move.x, move.y);
         else
-            RunnerItem.setPos(move.x, move.y);
+            RunnerItem.set_pos(move.x, move.y);
     }
 
     public void load_replay( String path )
@@ -27,15 +27,15 @@ public class RecordPlayer
         boolean[][] game_field = this.replay_handler.replay.game_field;
         this.scene = new Scene(game_field);
 
-        scene.addItem( this.RunnerItem );
+        scene.add_item( this.RunnerItem );
         for (Item item : this.CatcherItems)
-            scene.addItem(item);
+            scene.add_item(item);
 
-        CatcherItems[0].setPos(0, 3);
-        CatcherItems[1].setPos(1, 4);
-        CatcherItems[2].setPos(2, 3);
+        CatcherItems[0].set_pos(0, 3);
+        CatcherItems[1].set_pos(1, 4);
+        CatcherItems[2].set_pos(2, 3);
 
-        RunnerItem.setPos(1, 2);
+        RunnerItem.set_pos(1, 2);
     }
 
     public void play()
@@ -48,7 +48,7 @@ public class RecordPlayer
             System.out.println("=========\n=========");
             System.out.println("Input any key.");
             scanner.next();
-            this.applyMove(move);
+            this.apply_move(move);
             scene.render();
         }
         String winner_name = "";

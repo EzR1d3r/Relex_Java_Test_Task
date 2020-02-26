@@ -34,8 +34,6 @@ class Replay
     public boolean[][] game_field = {};
 
     public ArrayList<SingleMove> moves = new ArrayList<>();
-
-    // Replay(){};
 }
 
 public class ReplayHandler
