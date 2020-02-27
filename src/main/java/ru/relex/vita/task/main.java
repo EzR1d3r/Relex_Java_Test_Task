@@ -1,4 +1,4 @@
-import ru.relex.vita.game.GameManager;
+import ru.relex.vita.task.GameManager;
 
 class Main
 {

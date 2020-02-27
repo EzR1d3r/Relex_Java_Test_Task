@@ -1,4 +1,6 @@
 *.rep
+# *.classpath
+# *.project
 
 # VS Code settings
 .vscode/

@@ -1,4 +1,4 @@
-package ru.relex.vita.game;
+package ru.relex.vita.task;
 
 public class Item
 {
